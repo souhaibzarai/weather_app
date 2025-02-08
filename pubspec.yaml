@@ -73,11 +73,11 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: BalooDa2
+    - family: mainFont
       fonts:
         - asset: assets/fonts/BalooDa2.ttf
         
-    - family: BrunoAceSC
+    - family: specialFont
       fonts:
         - asset: assets/fonts/BrunoAceSC.ttf
 

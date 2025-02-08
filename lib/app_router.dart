@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:softux_weather/constants/strings.dart';
+import 'package:softux_weather/features/welcome/location_screen.dart';
 import 'package:softux_weather/features/welcome/welcome_screen.dart';
 
 class AppRouter {
@@ -9,6 +10,13 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) {
             return const WelcomeScreen();
+          },
+        );
+
+      case locationScreen:
+        return MaterialPageRoute(
+          builder: (_) {
+            return const LocationScreen();
           },
         );
     }
