@@ -22,7 +22,7 @@ class WelcomeButton extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'specialFont',
             color: AppColors.backgroundColor,
-            fontSize: 30,
+            fontSize: 15,
           ),
         ),
       ),

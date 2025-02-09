@@ -16,28 +16,32 @@ class WelcomeScreen extends StatelessWidget {
       child: Scaffold(
         body: Center(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Text(
                   'Welcome To SoftUx',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 18,
                     fontFamily: 'specialFont',
                   ),
                 ),
-                const SizedBox(height: 15),
-                Image.asset('assets/images/weather.gif'),
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
+                Image.asset(
+                  'assets/images/weather.gif',
+                  width: 150,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 30),
                 const Text(
                   description,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 13,
                   ),
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: 40),
                 WelcomeButton(onNextButtonClicked: onNextButtonClicked),
               ],
             ),
