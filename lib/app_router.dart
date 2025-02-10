@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:softux_weather/constants/strings.dart';
-import 'package:softux_weather/features/welcome/location_screen.dart';
-import 'package:softux_weather/features/welcome/welcome_screen.dart';
+import 'package:softux_weather/features/home/screens/location_screen.dart';
+import 'package:softux_weather/features/home/screens/welcome_screen.dart';
 
 class AppRouter {
   Route? generateRoute(RouteSettings settings) {

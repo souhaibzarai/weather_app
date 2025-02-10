@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/features/welcome/welcome_button.dart';
+import 'package:softux_weather/features/home/widgets/welcome_screen_button.dart';
 
-import '../../constants/strings.dart';
+import '../../../constants/strings.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -9,7 +9,10 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void onNextButtonClicked() {
-      Navigator.pushNamed(context, locationScreen);
+      Navigator.pushReplacementNamed(
+        context,
+        locationScreen,
+      );
     }
 
     return SafeArea(
@@ -42,7 +45,9 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                WelcomeButton(onNextButtonClicked: onNextButtonClicked),
+                WelcomeButton(
+                  onNextButtonClicked: onNextButtonClicked,
+                ),
               ],
             ),
           ),
