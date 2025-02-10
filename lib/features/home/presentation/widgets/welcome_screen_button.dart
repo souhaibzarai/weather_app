@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/theme/app_colors.dart';
+import '../../../../constants/theme/app_colors.dart';
 
 class WelcomeButton extends StatelessWidget {
   const WelcomeButton({super.key, required this.onNextButtonClicked});

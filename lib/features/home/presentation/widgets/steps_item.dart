@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/theme/app_colors.dart';
+import '../../../../constants/theme/app_colors.dart';
 
 class StepsItem extends StatelessWidget {
   const StepsItem({super.key, required this.text});

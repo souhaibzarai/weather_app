@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/features/home/widgets/location_screen_button.dart';
-import 'package:softux_weather/features/home/widgets/steps_item.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:softux_weather/features/home/presentation/widgets/location_screen_button.dart';
+import 'package:softux_weather/features/home/presentation/widgets/steps_item.dart';
+import 'package:softux_weather/helpers/location_helper.dart';
 
-import '../../../constants/theme/app_colors.dart';
+import '../../../../constants/theme/app_colors.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
@@ -12,6 +14,11 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  late double? currentLatitude;
+  late double? currentLongitude;
+
+  bool isLoadingPosition = false;
+
   Widget buildTextRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -46,10 +53,62 @@ class _LocationScreenState extends State<LocationScreen> {
       buttonWidthAndHeight: 50,
       width: 110,
       height: 70,
-      onTap: null,
-      // TODO: onTap
+      onTap: getLatitudeAndLongitudeAndPushWeatherScreen,
     );
   }
+
+  Future<void> getLatitudeAndLongitudeAndPushWeatherScreen() async {
+    setState(() {
+      isLoadingPosition = true;
+    });
+
+    try {
+      Position? currentPosition = await LocationHelper.getMyCurrentLocation();
+
+      currentLatitude = currentPosition?.latitude ?? (30.47);
+      currentLongitude = currentPosition?.longitude ?? (-8.87);
+
+      print('$currentLatitude , $currentLongitude');
+
+      if (currentLatitude != null && currentLongitude != null) {
+        // Navigator.pushReplacementNamed(context, weatherScreen,);
+        // TODO: weather page
+      }
+    } catch (e) {
+      print('error, couldnt get location $e');
+    } finally {
+      setState(() {
+        isLoadingPosition = false;
+      });
+    }
+  }
+
+  // void showProgressIndicator() {
+  //   AlertDialog alertDialog = AlertDialog(
+  //     backgroundColor: AppColors.backgroundColor,
+  //     elevation: 0,
+  //     content: Center(
+  //       child: Column(
+  //         children: [
+  //           Text('getting current location'),
+  //           CircularProgressIndicator.adaptive(
+  //             valueColor: AlwaysStoppedAnimation(
+  //               AppColors.secondaryColor,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  //   showDialog(
+  //     context: context,
+  //     barrierColor: AppColors.backgroundColor,
+  //     barrierDismissible: false,
+  //     builder: (context) {
+  //       return alertDialog;
+  //     },
+  //   );
+  // }
 
   Widget buildInfoButton() {
     return Align(
@@ -124,25 +183,35 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Widget content = Container(
+      margin: EdgeInsets.only(
+        left: 20,
+        top: 40,
+        right: 20,
+        bottom: 20,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          buildTextRow(),
+          buildDetectLocationButton(),
+          buildInfoButton(),
+        ],
+      ),
+    );
+
+    if (isLoadingPosition) {
+      content = Center(
+        child: CircularProgressIndicator(
+          color: AppColors.secondaryColor,
+        ),
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Container(
-            margin: EdgeInsets.only(
-              left: 20,
-              top: 40,
-              right: 20,
-              bottom: 20,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTextRow(),
-                buildDetectLocationButton(),
-                buildInfoButton(),
-              ],
-            ),
-          ),
+          child: content,
         ),
       ),
     );

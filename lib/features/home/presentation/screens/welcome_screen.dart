@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/features/home/widgets/welcome_screen_button.dart';
+import 'package:softux_weather/features/home/presentation/widgets/welcome_screen_button.dart';
 
-import '../../../constants/strings.dart';
+import '../../../../constants/strings.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
