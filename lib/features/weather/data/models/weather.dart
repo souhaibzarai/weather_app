@@ -3,11 +3,11 @@ class Weather {
   final String description;
 
   const Weather({required this.description, required this.main});
-  
-  factory Weather.fromJson(Map<String, dynamic> json) {
+
+  factory Weather.fromJson(List<dynamic> json) {
     return Weather(
-      description: json['description'],
-      main: json['main'],
+      description: json.first['description'],
+      main: json.first['main'],
     );
   }
 }

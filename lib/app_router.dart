@@ -6,14 +6,27 @@ import 'package:softux_weather/features/home/data/repository/home_repository.dar
 import 'package:softux_weather/features/home/data/webservices/home_web_services.dart';
 import 'package:softux_weather/features/home/presentation/screens/location_screen.dart';
 import 'package:softux_weather/features/home/presentation/screens/welcome_screen.dart';
+import 'package:softux_weather/features/weather/business_logic/cubit/weather_cubit.dart';
+import 'package:softux_weather/features/weather/data/models/weather_service.dart';
+import 'package:softux_weather/features/weather/data/repository/weather_repository.dart';
+import 'package:softux_weather/features/weather/data/webservices/weather_web_services.dart';
+
+import 'features/weather/presentation/weather_screen.dart';
 
 class AppRouter {
   HomeCubit? homeCubit;
   HomeRepository? homeRepository;
   HomeWebServices homeWebServices = HomeWebServices();
+
+  WeatherCubit? weatherCubit;
+  WeatherRepository? weatherRepository;
+  WeatherWebServices weatherWebServices = WeatherWebServices();
+
   AppRouter() {
     homeRepository = HomeRepository(homeWebServices);
     homeCubit = HomeCubit(homeRepository!);
+    weatherRepository = WeatherRepository(weatherWebServices);
+    weatherCubit = WeatherCubit(weatherRepository!);
   }
 
   Route? generateRoute(RouteSettings settings) {
@@ -27,11 +40,23 @@ class AppRouter {
 
       case locationScreen:
         return MaterialPageRoute(builder: (context) {
-          return BlocProvider<HomeCubit>(
-            create: (context) {
-              return homeCubit!;
-            },
-            child: const LocationScreen(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<HomeCubit>.value(value: homeCubit!),
+              BlocProvider<WeatherCubit>.value(value: weatherCubit!),
+            ],
+            child: LocationScreen(),
+          );
+        });
+
+      case weatherScreen:
+        final weatherService = settings.arguments as WeatherService;
+        return MaterialPageRoute(builder: (_) {
+          return BlocProvider<WeatherCubit>.value(
+            value: weatherCubit!,
+            child: WeatherScreen(
+              weatherService: weatherService,
+            ),
           );
         });
     }

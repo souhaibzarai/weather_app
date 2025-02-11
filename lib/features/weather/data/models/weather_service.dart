@@ -7,9 +7,9 @@ class WeatherService {
   final Coord coord;
   final Weather weather;
   final Main main;
-  final double dateTime;
+  final int dateTime;
   final Sys sys;
-  final double timezone;
+  final int timezone;
   final String name;
 
   WeatherService({
@@ -24,13 +24,18 @@ class WeatherService {
 
   factory WeatherService.fromJson(Map<String, dynamic> json) {
     return WeatherService(
-      coord: json['coord'],
-      weather: json['weather'],
-      main: json['main'],
+      coord: Coord.fromJson(json['coord']),
+      weather: Weather.fromJson(json['weather']),
+      main: Main.fromJson(json['main']),
       dateTime: json['dt'],
-      sys: json['sys'],
+      sys: Sys.fromJson(json['sys']),
       timezone: json['timezone'],
       name: json['name'],
     );
+  }
+
+  @override
+  String toString() {
+    return 'WeatherService(name: $name, coord: $coord, main: $main, sys: $sys, timezone: $timezone)';
   }
 }

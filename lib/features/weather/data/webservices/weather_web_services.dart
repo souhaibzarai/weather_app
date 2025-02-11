@@ -15,14 +15,14 @@ class WeatherWebServices {
     dio = Dio(options);
   }
 
-  Future<Map<String, dynamic>> getCityWeather(String cityName) async {
+  Future<dynamic> getCityWeather(String cityName) async {
     try {
       final response = await dio.get(weatherBaseUrl, queryParameters: {
         'q': cityName,
         'appid': weatherApiKey,
       });
 
-      print(response.data);
+      print('Webservice executed ${response.data}, $cityName');
 
       return response.data;
     } catch (e) {

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
+import 'package:softux_weather/constants/strings.dart';
 import 'package:softux_weather/features/home/business_logic/cubit/home_cubit.dart';
 import 'package:softux_weather/features/home/presentation/widgets/location_screen_button.dart';
 import 'package:softux_weather/features/home/presentation/widgets/steps_item.dart';
+import 'package:softux_weather/features/weather/business_logic/cubit/weather_cubit.dart';
+import 'package:softux_weather/features/weather/data/models/weather_service.dart';
 import 'package:softux_weather/helpers/location_helper.dart';
 
 import '../../../../constants/theme/app_colors.dart';
@@ -18,9 +21,7 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   late double? lat;
   late double? lng;
-  String? address;
-
-  bool isLoadingPosition = false;
+  late String? errorMsg;
 
   Widget buildTextRow() {
     return Row(
@@ -168,35 +169,52 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 
+  showScaffold(String text) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        text,
+      ),
+      backgroundColor: AppColors.backgroundColor,
+      dismissDirection: DismissDirection.down,
+      duration: Duration(seconds: 20),
+    ));
+  }
+
   Widget buildCityNameBloc() {
-    return BlocListener<HomeCubit, HomeState>(
-      listenWhen: (current, prev) => current != prev,
-      listener: (context, state) {
-        if (state is CityNameLoading) {
-          showProgressIndicator();
-        }
-        if (state is CityNameLoaded) {
-          Navigator.pop(context);
-          setState(() {
-            address = state.city.results.first.formattedAddress;
-          });
-
-          print(address);
-        }
-        if (state is CityNameError) {
-          String errorMsg = state.toString();
-          Navigator.pop(context);
-
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-              errorMsg,
-            ),
-            backgroundColor: AppColors.backgroundColor,
-            dismissDirection: DismissDirection.down,
-            duration: Duration(seconds: 20),
-          ));
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<HomeCubit, HomeState>(
+          listenWhen: (prev, current) => prev != current,
+          listener: (context, state) {
+            if (state is CityNameLoading) {
+              showProgressIndicator();
+            } else if (state is CityNameLoaded) {
+              BlocProvider.of<WeatherCubit>(context).implementCityNameToUI(
+                  state.city.results.first.formattedAddress);
+            } else if (state is CityNameError) {
+              errorMsg = state.toString();
+              showScaffold(errorMsg ?? 'Error Message Empty');
+            }
+          },
+        ),
+        BlocListener<WeatherCubit, WeatherState>(
+          listenWhen: (prev, current) => prev != current,
+          listener: (context, state) {
+            if (state is WeatherLoading) {
+              showProgressIndicator();
+            } else if (state is WeatherLoaded) {
+              Navigator.pop(context);
+              Navigator.of(context).pushReplacementNamed(
+                weatherScreen,
+                arguments: state.weather,
+              );
+            } else if (state is WeatherError) {
+              errorMsg = state.errMsg;
+              showScaffold(errorMsg!);
+            }
+          },
+        ),
+      ],
       child: SizedBox.shrink(),
     );
   }
@@ -214,21 +232,13 @@ class _LocationScreenState extends State<LocationScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildTextRow(),
-          address != null ? Text(address!) : SizedBox.shrink(),
+          SizedBox.shrink(),
           buildDetectLocationButton(),
           buildCityNameBloc(),
           buildInfoButton(),
         ],
       ),
     );
-
-    if (isLoadingPosition) {
-      content = Center(
-        child: CircularProgressIndicator(
-          color: AppColors.secondaryColor,
-        ),
-      );
-    }
 
     return SafeArea(
       child: Scaffold(

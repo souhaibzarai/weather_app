@@ -13,13 +13,19 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> implementCityNameToUI(String cityName) async {
     emit(WeatherLoading());
 
+    print('weather loading executed');
+
     try {
       final currentWeather =
           await weatherRepository.fetchCurrentCityWeather(cityName);
+      print('Cubit executed| ${currentWeather.toString()},| $cityName');
+
       emit(WeatherLoaded(currentWeather));
+
+      print('Technically loaded | cubit');
     } catch (e) {
       emit(WeatherError(e.toString()));
-      print('$e');
+      print('cubit error | $e');
     }
   }
 }

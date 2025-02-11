@@ -1,7 +1,7 @@
 class Sys {
   final String country;
-  final double sunrise;
-  final double sunset;
+  final int sunrise;
+  final int sunset;
 
   const Sys({
     required this.country,
