@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:location/location.dart';
+import 'package:softux_weather/features/home/business_logic/cubit/home_cubit.dart';
 import 'package:softux_weather/features/home/presentation/widgets/location_screen_button.dart';
 import 'package:softux_weather/features/home/presentation/widgets/steps_item.dart';
 import 'package:softux_weather/helpers/location_helper.dart';
@@ -14,8 +16,9 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  late double? currentLatitude;
-  late double? currentLongitude;
+  late double? lat;
+  late double? lng;
+  String? address;
 
   bool isLoadingPosition = false;
 
@@ -58,57 +61,20 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   Future<void> getLatitudeAndLongitudeAndPushWeatherScreen() async {
-    setState(() {
-      isLoadingPosition = true;
-    });
-
     try {
-      Position? currentPosition = await LocationHelper.getMyCurrentLocation();
+      LocationData? currentPosition = await LocationHelper.getCurrentLocation();
 
-      currentLatitude = currentPosition?.latitude ?? (30.47);
-      currentLongitude = currentPosition?.longitude ?? (-8.87);
+      lat = currentPosition?.latitude ?? (30.47);
+      lng = currentPosition?.longitude ?? (-8.87);
+      print('$lat , $lng');
 
-      print('$currentLatitude , $currentLongitude');
-
-      if (currentLatitude != null && currentLongitude != null) {
-        // Navigator.pushReplacementNamed(context, weatherScreen,);
-        // TODO: weather page
+      if (lat != null && lng != null) {
+        BlocProvider.of<HomeCubit>(context).getCityName(lat!, lng!);
       }
     } catch (e) {
       print('error, couldnt get location $e');
-    } finally {
-      setState(() {
-        isLoadingPosition = false;
-      });
     }
   }
-
-  // void showProgressIndicator() {
-  //   AlertDialog alertDialog = AlertDialog(
-  //     backgroundColor: AppColors.backgroundColor,
-  //     elevation: 0,
-  //     content: Center(
-  //       child: Column(
-  //         children: [
-  //           Text('getting current location'),
-  //           CircularProgressIndicator.adaptive(
-  //             valueColor: AlwaysStoppedAnimation(
-  //               AppColors.secondaryColor,
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  //   showDialog(
-  //     context: context,
-  //     barrierColor: AppColors.backgroundColor,
-  //     barrierDismissible: false,
-  //     builder: (context) {
-  //       return alertDialog;
-  //     },
-  //   );
-  // }
 
   Widget buildInfoButton() {
     return Align(
@@ -119,6 +85,27 @@ class _LocationScreenState extends State<LocationScreen> {
         buttonWidthAndHeight: 50,
         onTap: buildInfoDialogResult,
       ),
+    );
+  }
+
+  void showProgressIndicator() {
+    AlertDialog alertDialog = AlertDialog(
+      backgroundColor: AppColors.backgroundColor,
+      elevation: 0,
+      content: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation(AppColors.secondaryColor),
+        ),
+      ),
+    );
+
+    showDialog(
+      barrierColor: AppColors.backgroundColor,
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return alertDialog;
+      },
     );
   }
 
@@ -181,6 +168,39 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 
+  Widget buildCityNameBloc() {
+    return BlocListener<HomeCubit, HomeState>(
+      listenWhen: (current, prev) => current != prev,
+      listener: (context, state) {
+        if (state is CityNameLoading) {
+          showProgressIndicator();
+        }
+        if (state is CityNameLoaded) {
+          Navigator.pop(context);
+          setState(() {
+            address = state.city.results.first.formattedAddress;
+          });
+
+          print(address);
+        }
+        if (state is CityNameError) {
+          String errorMsg = state.toString();
+          Navigator.pop(context);
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              errorMsg,
+            ),
+            backgroundColor: AppColors.backgroundColor,
+            dismissDirection: DismissDirection.down,
+            duration: Duration(seconds: 20),
+          ));
+        }
+      },
+      child: SizedBox.shrink(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget content = Container(
@@ -194,7 +214,9 @@ class _LocationScreenState extends State<LocationScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildTextRow(),
+          address != null ? Text(address!) : SizedBox.shrink(),
           buildDetectLocationButton(),
+          buildCityNameBloc(),
           buildInfoButton(),
         ],
       ),

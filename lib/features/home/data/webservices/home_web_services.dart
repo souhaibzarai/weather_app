@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:softux_weather/constants/secrets/api_keys.dart';
 import 'package:softux_weather/constants/strings.dart';
 
 class HomeWebServices {
@@ -13,19 +14,22 @@ class HomeWebServices {
     dio = Dio(options);
   }
 
-  Future<dynamic> getCityDetails(double lat, double lng) async {
+  Future<Map<String, dynamic>> getCityDetails(double lat, double lng) async {
     try {
+      print("Making request to: $locationBaseUrl with lat: $lat, lng: $lng");
       final response = await dio.get(
-        getCityNameBaseUrl,
+        locationBaseUrl,
         queryParameters: {
-          'lat': lat,
-          'lng': lng,
-          'format': 'json',
+          'latlng': '$lat,$lng',
+          'result_type': 'administrative_area_level_2',
+          'key': mapsApiKey,
         },
       );
+      print("Response received: ${response.data['resuls']}");
       return response.data;
     } catch (e) {
-      print('error occurred $e');
+      print("Error in getCityDetails: $e");
+      throw Exception('error occurred $e');
     }
   }
 }
