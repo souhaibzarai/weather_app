@@ -1,5 +1,5 @@
-import 'package:softux_weather/features/home/data/models/address_model.dart';
-import 'package:softux_weather/features/home/data/webservices/home_web_services.dart';
+import '../models/address_model.dart';
+import '../webservices/home_web_services.dart';
 
 class HomeRepository {
   final HomeWebServices homeWebServices;

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:softux_weather/features/weather/data/models/weather_service.dart';
-import 'package:softux_weather/features/weather/data/repository/weather_repository.dart';
+import '../../data/models/weather_service.dart';
+import '../../data/repository/weather_repository.dart';
 
 part 'weather_state.dart';
 

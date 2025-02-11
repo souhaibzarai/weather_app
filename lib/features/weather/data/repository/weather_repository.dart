@@ -1,5 +1,5 @@
-import 'package:softux_weather/features/weather/data/models/weather_service.dart';
-import 'package:softux_weather/features/weather/data/webservices/weather_web_services.dart';
+import '../models/weather_service.dart';
+import '../webservices/weather_web_services.dart';
 
 class WeatherRepository {
   final WeatherWebServices weatherWebServices;

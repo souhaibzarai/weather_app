@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/app_router.dart';
-import 'package:softux_weather/constants/strings.dart';
-import 'package:softux_weather/constants/theme/theme.dart';
+import 'app_router.dart';
+import 'constants/strings.dart';
+import 'constants/theme/theme.dart';
 
 void main() {
   runApp(

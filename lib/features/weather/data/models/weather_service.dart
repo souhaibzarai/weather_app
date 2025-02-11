@@ -1,7 +1,7 @@
-import 'package:softux_weather/features/weather/data/models/coord.dart';
-import 'package:softux_weather/features/weather/data/models/main.dart';
-import 'package:softux_weather/features/weather/data/models/sys.dart';
-import 'package:softux_weather/features/weather/data/models/weather.dart';
+import 'coord.dart';
+import 'main.dart';
+import 'sys.dart';
+import 'weather.dart';
 
 class WeatherService {
   final Coord coord;

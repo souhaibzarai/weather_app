@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/features/weather/data/models/weather_service.dart';
+import '../data/models/weather_service.dart';
 
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({super.key, required this.weatherService});

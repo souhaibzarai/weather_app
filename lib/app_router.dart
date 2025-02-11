@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:softux_weather/constants/strings.dart';
-import 'package:softux_weather/features/home/business_logic/cubit/home_cubit.dart';
-import 'package:softux_weather/features/home/data/repository/home_repository.dart';
-import 'package:softux_weather/features/home/data/webservices/home_web_services.dart';
-import 'package:softux_weather/features/home/presentation/screens/location_screen.dart';
-import 'package:softux_weather/features/home/presentation/screens/welcome_screen.dart';
-import 'package:softux_weather/features/weather/business_logic/cubit/weather_cubit.dart';
-import 'package:softux_weather/features/weather/data/models/weather_service.dart';
-import 'package:softux_weather/features/weather/data/repository/weather_repository.dart';
-import 'package:softux_weather/features/weather/data/webservices/weather_web_services.dart';
+import 'constants/strings.dart';
+import 'features/home/business_logic/cubit/home_cubit.dart';
+import 'features/home/data/repository/home_repository.dart';
+import 'features/home/data/webservices/home_web_services.dart';
+import 'features/home/presentation/screens/location_screen.dart';
+import 'features/home/presentation/screens/welcome_screen.dart';
+import 'features/weather/business_logic/cubit/weather_cubit.dart';
+import 'features/weather/data/models/weather_service.dart';
+import 'features/weather/data/repository/weather_repository.dart';
+import 'features/weather/data/webservices/weather_web_services.dart';
 
 import 'features/weather/presentation/weather_screen.dart';
 

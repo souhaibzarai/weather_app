@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/features/home/presentation/widgets/welcome_screen_button.dart';
+import '../widgets/welcome_screen_button.dart';
 
 import '../../../../constants/strings.dart';
 

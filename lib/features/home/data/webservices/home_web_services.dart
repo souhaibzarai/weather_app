@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:softux_weather/constants/secrets/api_keys.dart';
-import 'package:softux_weather/constants/strings.dart';
+import '../../../../constants/secrets/api_keys.dart';
+import '../../../../constants/strings.dart';
 
 class HomeWebServices {
   late Dio dio;

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:softux_weather/features/home/data/models/address_model.dart';
-import 'package:softux_weather/features/home/data/repository/home_repository.dart';
+import '../../data/models/address_model.dart';
+import '../../data/repository/home_repository.dart';
 
 part 'home_state.dart';
 

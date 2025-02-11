@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
-import 'package:softux_weather/constants/strings.dart';
-import 'package:softux_weather/features/home/business_logic/cubit/home_cubit.dart';
-import 'package:softux_weather/features/home/presentation/widgets/location_screen_button.dart';
-import 'package:softux_weather/features/home/presentation/widgets/steps_item.dart';
-import 'package:softux_weather/features/weather/business_logic/cubit/weather_cubit.dart';
-import 'package:softux_weather/features/weather/data/models/weather_service.dart';
-import 'package:softux_weather/helpers/location_helper.dart';
+import '../../../../constants/strings.dart';
+import '../../business_logic/cubit/home_cubit.dart';
+import '../widgets/location_screen_button.dart';
+import '../widgets/steps_item.dart';
+import '../../../weather/business_logic/cubit/weather_cubit.dart';
+import '../../../../helpers/location_helper.dart';
 
 import '../../../../constants/theme/app_colors.dart';
 
