@@ -11,7 +11,7 @@ import 'features/weather/data/models/weather_service.dart';
 import 'features/weather/data/repository/weather_repository.dart';
 import 'features/weather/data/webservices/weather_web_services.dart';
 
-import 'features/weather/presentation/weather_screen.dart';
+import 'features/weather/presentation/screens/weather_screen.dart';
 
 class AppRouter {
   HomeCubit? homeCubit;
