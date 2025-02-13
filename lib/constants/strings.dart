@@ -7,3 +7,6 @@ const String description =
 const String locationBaseUrl =
     'https://maps.googleapis.com/maps/api/geocode/json';
 const String weatherBaseUrl = 'https://api.openweathermap.org/data/2.5/weather';
+
+const String getMultiDaysForecast =
+    'https://api.openweathermap.org/data/2.5/forecast';

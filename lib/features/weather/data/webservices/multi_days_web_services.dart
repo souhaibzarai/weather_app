@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import '../../../../constants/secrets/api_keys.dart';
 import '../../../../constants/strings.dart';
 
-class WeatherWebServices {
+class MultiDaysWebServices {
   late Dio dio;
 
   final BaseOptions options = BaseOptions(
@@ -11,20 +11,21 @@ class WeatherWebServices {
     receiveTimeout: Duration(seconds: 20),
   );
 
-  WeatherWebServices() {
+  MultiDaysWebServices() {
     dio = Dio(options);
   }
 
-  Future<dynamic> getCurrentWeather(String cityName) async {
+  Future<dynamic> getMultiDaysWeatherForecast(String cityName) async {
     try {
-      final response = await dio.get(weatherBaseUrl, queryParameters: {
+      final response = await dio.get(getMultiDaysForecast, queryParameters: {
         'q': cityName,
         'appid': weatherApiKey,
+        // 'cnt': 5,
       });
 
       return response.data;
     } catch (e) {
-      throw Exception('$e');
+      throw Exception('Error Occurred | $e while retrieved data in webservice');
     }
   }
 }

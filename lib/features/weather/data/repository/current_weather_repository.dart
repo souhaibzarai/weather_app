@@ -1,4 +1,4 @@
-import '../models/weather_service.dart';
+import '../models/current_weather/weather_service.dart';
 import '../webservices/weather_web_services.dart';
 
 class WeatherRepository {
@@ -7,9 +7,7 @@ class WeatherRepository {
   const WeatherRepository(this.weatherWebServices);
 
   Future<WeatherService> fetchCurrentCityWeather(String cityName) async {
-    final currentWeather = await weatherWebServices.getCityWeather(cityName);
-
-    print('Repository executed $currentWeather, $cityName');
+    final currentWeather = await weatherWebServices.getCurrentWeather(cityName);
 
     return WeatherService.fromJson(currentWeather);
   }

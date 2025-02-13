@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
+import 'package:softux_weather/features/home/presentation/widgets/text_row.dart';
+import 'package:softux_weather/features/weather/business_logic/cubit/multi_days_weather/multi_days_cubit.dart';
+import 'package:softux_weather/features/weather/data/models/current_weather/weather_service.dart';
 import '../../../../constants/strings.dart';
+import '../../../weather/data/models/multi_days_weather/list.dart';
 import '../../business_logic/cubit/home_cubit.dart';
 import '../widgets/location_screen_button.dart';
 import '../widgets/steps_item.dart';
-import '../../../weather/business_logic/cubit/weather_cubit.dart';
+import '../../../weather/business_logic/cubit/current_weather/weather_cubit.dart';
 import '../../../../helpers/location_helper.dart';
 
 import '../../../../constants/theme/app_colors.dart';
@@ -21,33 +25,6 @@ class _LocationScreenState extends State<LocationScreen> {
   late double? lat;
   late double? lng;
   late String? errorMsg;
-
-  Widget buildTextRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Set u',
-          style: TextStyle(
-            fontSize: 24,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 6),
-          child: Image.asset(
-            'assets/images/locationIcon.png',
-            width: 26,
-          ),
-        ),
-        Text(
-          ' your location',
-          style: TextStyle(
-            fontSize: 24,
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget buildDetectLocationButton() {
     return LocationScreenButton(
@@ -66,9 +43,9 @@ class _LocationScreenState extends State<LocationScreen> {
 
       lat = currentPosition?.latitude ?? (30.47);
       lng = currentPosition?.longitude ?? (-8.87);
-      print('$lat , $lng');
 
       if (lat != null && lng != null) {
+        // ignore: use_build_context_synchronously
         BlocProvider.of<HomeCubit>(context).getCityName(lat!, lng!);
       }
     } catch (e) {
@@ -180,34 +157,63 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   Widget buildCityNameBloc() {
+    WeatherService? weatherService;
+    DaysList? daysList;
     return MultiBlocListener(
       listeners: [
         BlocListener<HomeCubit, HomeState>(
           listenWhen: (prev, current) => prev != current,
           listener: (context, state) {
-            if (state is CityNameLoading) {
-              showProgressIndicator();
-            } else if (state is CityNameLoaded) {
-              BlocProvider.of<WeatherCubit>(context).implementCityNameToUI(
-                  state.city.results.first.formattedAddress);
+            if (state is CityNameLoaded) {
+              String formattedAddress =
+                  state.city.results.first.formattedAddress;
+              context
+                  .read<WeatherCubit>()
+                  .implementCityNameToUI(formattedAddress);
+              context
+                  .read<MultiDaysCubit>()
+                  .implementMultiDaysWeatherToUI(formattedAddress);
             } else if (state is CityNameError) {
               errorMsg = state.toString();
-              showScaffold(errorMsg ?? 'Error Message Empty');
+              showScaffold(errorMsg ??
+                  'Error Occurred in Loading City Name || error message empty');
+              return;
             }
           },
         ),
         BlocListener<WeatherCubit, WeatherState>(
           listenWhen: (prev, current) => prev != current,
           listener: (context, state) {
-            if (state is WeatherLoading) {
-              showProgressIndicator();
-            } else if (state is WeatherLoaded) {
-              Navigator.pop(context);
-              Navigator.of(context).pushReplacementNamed(
-                weatherScreen,
-                arguments: state.weather,
-              );
+            if (state is WeatherLoaded) {
+              weatherService = state.weather;
+              // Only navigate if both pieces of data are available
+              if (weatherService != null && daysList != null) {
+                Navigator.of(context).pushReplacementNamed(
+                  weatherScreen,
+                  arguments: [weatherService, daysList],
+                );
+              }
             } else if (state is WeatherError) {
+              showScaffold(state.errMsg);
+            }
+          },
+        ),
+        BlocListener<MultiDaysCubit, MultiDaysState>(
+          listenWhen: (prev, current) => prev != current,
+          listener: (context, state) {
+            if (state is MultiDaysWeatherLoaded) {
+              daysList = state.daysList;
+              if (weatherService != null && daysList != null) {
+                Navigator.of(context).pushReplacementNamed(
+                  weatherScreen,
+                  arguments: [
+                    weatherService,
+                    daysList,
+                  ],
+                );
+              }
+            } else if (state is MultiDaysWeatherError) {
+              Navigator.pop(context);
               errorMsg = state.errMsg;
               showScaffold(errorMsg!);
             }
@@ -230,7 +236,7 @@ class _LocationScreenState extends State<LocationScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          buildTextRow(),
+          TextRow(),
           SizedBox.shrink(),
           buildDetectLocationButton(),
           buildCityNameBloc(),

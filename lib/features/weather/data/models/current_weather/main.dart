@@ -3,12 +3,14 @@ class Main {
   final double feelsLike;
   final double tempMin;
   final double tempMax;
+  final int humidity;
 
   const Main({
     required this.temp,
     required this.feelsLike,
     required this.tempMax,
     required this.tempMin,
+    required this.humidity,
   });
 
   factory Main.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class Main {
       feelsLike: json['feels_like'],
       tempMax: json['temp_max'],
       tempMin: json['temp_min'],
+      humidity: json['humidity'],
     );
   }
 }

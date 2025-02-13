@@ -1,9 +1,7 @@
-import 'package:softux_weather/features/weather/data/models/weather_service.dart';
-
 class ImageHelper {
-  static String getImagePath(WeatherService weatherService) {
-    final weatherMain = weatherService.weather.main.toLowerCase();
-    final weatherDetail = weatherService.weather.description.toLowerCase();
+  static String getImagePath(String main, String detail) {
+    final weatherMain = main.toLowerCase();
+    final weatherDetail = detail.toLowerCase();
 
     if (weatherMain == 'clear' && weatherDetail == 'clear sky') {
       return 'sun.png';

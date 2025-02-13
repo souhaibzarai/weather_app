@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+
 import '../../data/models/address_model.dart';
 import '../../data/repository/home_repository.dart';
 
@@ -14,10 +15,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(CityNameLoading());
     try {
       final city = await homeRepository.fetchCityName(lat, lng);
-      print("City fetched: ${city.results}"); // Debugging line
       emit(CityNameLoaded(city));
     } catch (e) {
-      print('Error occurred | $e');
       emit(CityNameError(e.toString()));
     }
   }

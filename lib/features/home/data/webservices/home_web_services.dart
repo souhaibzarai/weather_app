@@ -16,7 +16,6 @@ class HomeWebServices {
 
   Future<Map<String, dynamic>> getCityDetails(double lat, double lng) async {
     try {
-      print("Making request to: $locationBaseUrl with lat: $lat, lng: $lng");
       final response = await dio.get(
         locationBaseUrl,
         queryParameters: {
@@ -25,10 +24,8 @@ class HomeWebServices {
           'key': mapsApiKey,
         },
       );
-      print("Response received: ${response.data['resuls']}");
       return response.data;
     } catch (e) {
-      print("Error in getCityDetails: $e");
       throw Exception('error occurred $e');
     }
   }
