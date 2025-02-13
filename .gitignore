@@ -54,6 +54,3 @@ app.*.map.json
 /windows/
 /web/
 /android/
-
-/lib/features/weather/business_logic/
-/lib/constants/secrets
