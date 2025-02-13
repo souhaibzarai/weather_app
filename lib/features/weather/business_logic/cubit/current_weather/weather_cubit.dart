@@ -15,7 +15,8 @@ class WeatherCubit extends Cubit<WeatherState> {
 
     try {
       final currentWeather =
-          await weatherRepository.fetchCurrentCityWeather(cityName);
+          // await weatherRepository.fetchCurrentCityWeather(cityName); TODO
+          await weatherRepository.fetchCurrentCityWeather('paris,fr');
 
       emit(WeatherLoaded(currentWeather));
     } catch (e) {

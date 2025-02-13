@@ -164,6 +164,9 @@ class _LocationScreenState extends State<LocationScreen> {
         BlocListener<HomeCubit, HomeState>(
           listenWhen: (prev, current) => prev != current,
           listener: (context, state) {
+            if (state is CityNameLoading) {
+              showProgressIndicator();
+            }
             if (state is CityNameLoaded) {
               String formattedAddress =
                   state.city.results.first.formattedAddress;
@@ -174,6 +177,7 @@ class _LocationScreenState extends State<LocationScreen> {
                   .read<MultiDaysCubit>()
                   .implementMultiDaysWeatherToUI(formattedAddress);
             } else if (state is CityNameError) {
+              Navigator.pop(context);
               errorMsg = state.toString();
               showScaffold(errorMsg ??
                   'Error Occurred in Loading City Name || error message empty');
@@ -186,7 +190,6 @@ class _LocationScreenState extends State<LocationScreen> {
           listener: (context, state) {
             if (state is WeatherLoaded) {
               weatherService = state.weather;
-              // Only navigate if both pieces of data are available
               if (weatherService != null && daysList != null) {
                 Navigator.of(context).pushReplacementNamed(
                   weatherScreen,
@@ -194,7 +197,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 );
               }
             } else if (state is WeatherError) {
+              Navigator.pop(context);
               showScaffold(state.errMsg);
+              return;
             }
           },
         ),

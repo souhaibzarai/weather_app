@@ -14,9 +14,8 @@ class MultiDaysCubit extends Cubit<MultiDaysState> {
     emit(MultiDaysWeatherLoading());
     try {
       final multiDaysResult =
-          await multiDaysWeatherRepository.fetchMultiDaysList(
-        cityName,
-      );
+          // await multiDaysWeatherRepository.fetchMultiDaysList(cityName); TODO
+          await multiDaysWeatherRepository.fetchMultiDaysList('paris,fr');
 
       emit(MultiDaysWeatherLoaded(multiDaysResult));
     } catch (e) {

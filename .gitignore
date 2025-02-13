@@ -55,4 +55,5 @@ app.*.map.json
 /web/
 /android/
 
+/lib/features/weather/business_logic/
 /lib/constants/secrets
