@@ -54,8 +54,3 @@ app.*.map.json
 /windows/
 /web/
 /android/
-
-
-/lib/features/
-/lib/weather_details.dart
-/lib/main.dart
