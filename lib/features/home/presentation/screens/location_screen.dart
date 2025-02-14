@@ -22,9 +22,9 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  late double? lat;
-  late double? lng;
-  late String? errorMsg;
+  double? lat;
+  double? lng;
+  String? errorMsg;
 
   Widget buildDetectLocationButton() {
     return LocationScreenButton(
@@ -38,16 +38,26 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   Future<void> getLatitudeAndLongitudeAndPushWeatherScreen() async {
+    showProgressIndicator();
     try {
       LocationData? currentPosition = await LocationHelper.getCurrentLocation();
 
-      lat = currentPosition?.latitude ?? (30.47);
-      lng = currentPosition?.longitude ?? (-8.87);
+      lat = currentPosition?.latitude;
+      lng = currentPosition?.latitude;
 
       if (lat != null && lng != null) {
         // ignore: use_build_context_synchronously
         BlocProvider.of<HomeCubit>(context).getCityName(lat!, lng!);
+        return;
       }
+      Navigator.pop(context);
+      showScaffold(
+        lat == null && lng == null
+            ? 'latitude and longitude are null'
+            : lat == null
+                ? 'latitude is null'
+                : 'longitude is null',
+      );
     } catch (e) {
       print('error, couldnt get location $e');
     }
@@ -164,9 +174,6 @@ class _LocationScreenState extends State<LocationScreen> {
         BlocListener<HomeCubit, HomeState>(
           listenWhen: (prev, current) => prev != current,
           listener: (context, state) {
-            if (state is CityNameLoading) {
-              showProgressIndicator();
-            }
             if (state is CityNameLoaded) {
               String formattedAddress =
                   state.city.results.first.formattedAddress;

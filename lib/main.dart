@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:softux_weather/weather_details.dart';
 import 'app_router.dart';
+// ignore: unused_import TODO: delete
 import 'constants/strings.dart';
 import 'constants/theme/theme.dart';
 
@@ -22,8 +24,9 @@ class WeatherApp extends StatelessWidget {
       title: 'SoftUX | Weather',
       debugShowCheckedModeBanner: false,
       theme: theme,
-      onGenerateRoute: appRouter.generateRoute,
-      initialRoute: welcomeScreen,
+      // onGenerateRoute: appRouter.generateRoute,
+      // initialRoute: welcomeScreen,
+      home: const WeatherDetails(),
     );
   }
 }

@@ -9,7 +9,7 @@ class ImageHelper {
     if (weatherDetail.contains('snow')) {
       return 'snow.png';
     }
-    if (weatherDetail.contains(' rain')) {
+    if (weatherDetail.contains(' rain') && !weatherDetail.contains('snow')) {
       return 'soft_rain.png';
     }
     if (weatherMain == 'clouds') {
@@ -25,6 +25,9 @@ class ImageHelper {
       if (weatherDetail.contains('broken')) {
         return 'broken_clouds.png';
       }
+    }
+    if (weatherMain.contains('mist') || weatherDetail.contains('mist')) {
+      return 'mist.png';
     }
     return 'sun.png';
   }
