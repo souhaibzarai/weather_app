@@ -1,5 +1,5 @@
 class WeatherMethodsHelper {
-  static double getTempCelsius(double tempK) {
-    return tempK - 273.15;
+  static String getTempCelsius(double tempK) {
+    return (tempK - 273.15).toStringAsFixed(2);
   }
 }

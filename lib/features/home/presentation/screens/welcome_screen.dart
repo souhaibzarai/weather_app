@@ -21,7 +21,8 @@ class WelcomeScreen extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              // mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 const Text(
                   'Welcome To SoftUx',

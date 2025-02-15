@@ -1,3 +1,4 @@
+import 'wind.dart';
 import 'coord.dart';
 import 'main.dart';
 import 'sys.dart';
@@ -7,6 +8,7 @@ class WeatherService {
   final Coord coord;
   final Weather weather;
   final Main main;
+  final Wind wind;
   final int dateTime;
   final Sys sys;
   final int timezone;
@@ -16,6 +18,7 @@ class WeatherService {
     required this.coord,
     required this.weather,
     required this.main,
+    required this.wind,
     required this.dateTime,
     required this.sys,
     required this.timezone,
@@ -28,14 +31,10 @@ class WeatherService {
       weather: Weather.fromJson(json['weather']),
       main: Main.fromJson(json['main']),
       dateTime: json['dt'],
+      wind: Wind.fromJson(json['wind']),
       sys: Sys.fromJson(json['sys']),
       timezone: json['timezone'],
       name: json['name'],
     );
-  }
-
-  @override
-  String toString() {
-    return 'WeatherService(name: $name, coord: $coord, main: $main, sys: $sys, timezone: $timezone)';
   }
 }

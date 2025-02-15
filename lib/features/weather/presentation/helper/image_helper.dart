@@ -3,32 +3,35 @@ class ImageHelper {
     final weatherMain = main.toLowerCase();
     final weatherDetail = detail.toLowerCase();
 
+    String? path;
     if (weatherMain == 'clear' && weatherDetail == 'clear sky') {
-      return 'sun.png';
+      path = 'sun.png';
     }
     if (weatherDetail.contains('snow')) {
-      return 'snow.png';
+      path = 'snow.png';
     }
     if (weatherDetail.contains(' rain') && !weatherDetail.contains('snow')) {
-      return 'soft_rain.png';
+      path = 'soft_rain.png';
     }
     if (weatherMain == 'clouds') {
       if (weatherDetail.contains('few')) {
-        return 'few_clouds.png';
+        path = 'few_clouds.png';
       }
       if (weatherDetail.contains('overcast')) {
-        return 'overcast_clouds.png';
+        path = 'overcast_clouds.png';
       }
       if (weatherDetail.contains('scattered')) {
-        return 'scattered_clouds.png';
+        path = 'scattered_clouds.png';
       }
       if (weatherDetail.contains('broken')) {
-        return 'broken_clouds.png';
+        path = 'broken_clouds.png';
       }
     }
     if (weatherMain.contains('mist') || weatherDetail.contains('mist')) {
-      return 'mist.png';
+      path = 'mist.png';
+    } else {
+      path = 'sun.png';
     }
-    return 'sun.png';
+    return 'assets/images/weather_status/$path';
   }
 }

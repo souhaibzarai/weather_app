@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:softux_weather/features/weather/data/models/current_weather/weather_service.dart';
+import 'package:softux_weather/features/weather/presentation/helper/image_helper.dart';
+import 'package:softux_weather/features/weather/presentation/helper/weather_methods_helper.dart';
 import 'package:softux_weather/features/weather/presentation/widgets/main_weather_sub_widget/sunset_sunrise.dart';
 import 'package:softux_weather/features/weather/presentation/widgets/main_weather_sub_widget/wind_widget.dart';
 
@@ -37,12 +39,15 @@ class MainWeather extends StatelessWidget {
             ),
           ),
           Image.asset(
-            'assets/images/weather_status/overcast_clouds.png',
+            ImageHelper.getImagePath(
+              weatherService.weather.main,
+              weatherService.weather.description,
+            ),
             width: 150,
             height: 150,
           ),
           Text(
-            'Clear Sky',
+            '${weatherService.weather.main}, ${weatherService.weather.description.toUpperCase()}', //weather desc
             style: TextStyle(
               color: AppColors.mainColor,
               fontSize: 14,
@@ -51,7 +56,9 @@ class MainWeather extends StatelessWidget {
           ),
           Text.rich(
             TextSpan(
-              text: '22',
+              text: WeatherMethodsHelper.getTempCelsius(
+                weatherService.main.temp,
+              ), //degree
               style: TextStyle(
                 fontFamily: 'specialFont',
                 fontSize: 50,
@@ -69,7 +76,7 @@ class MainWeather extends StatelessWidget {
             ),
           ),
           Text(
-            'H:30° | MIN: 90° | MAX: 31°',
+            'H: ${weatherService.main.humidity} | MIN: ${WeatherMethodsHelper.getTempCelsius(weatherService.main.tempMin)}° | MAX: ${WeatherMethodsHelper.getTempCelsius(weatherService.main.tempMax)}°',
             style: TextStyle(
               color: AppColors.humidityColor,
               fontSize: 12,
@@ -80,7 +87,7 @@ class MainWeather extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              WindWidget(),
+              WindWidget(weatherService),
               const SizedBox(width: 10),
               SunsetSunriseWidget(),
             ],
