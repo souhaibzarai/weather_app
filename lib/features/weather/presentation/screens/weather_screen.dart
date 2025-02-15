@@ -4,6 +4,7 @@ import 'package:softux_weather/constants/theme/app_colors.dart';
 import '../../data/models/current_weather/weather_service.dart';
 import '../../data/models/multi_days_weather/list.dart';
 import '../helper/image_helper.dart';
+
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({
     super.key,
@@ -34,7 +35,7 @@ class WeatherScreen extends StatelessWidget {
   // Group forecast items by date
   Map<String, List<dynamic>> _groupForecastByDate() {
     Map<String, List<dynamic>> groupedForecasts = {};
-    
+
     // Sort the list by datetime first
     final sortedList = List.from(daysList.listOfMultiDaysWeather)
       ..sort((a, b) => a.dateTime.compareTo(b.dateTime));
@@ -45,16 +46,14 @@ class WeatherScreen extends StatelessWidget {
         groupedForecasts[date] = [];
       }
       // Only add if the hour isn't already present for that date
-      if (!groupedForecasts[date]!.any((existing) => 
+      if (!groupedForecasts[date]!.any((existing) =>
           _formatHour(existing.dateTime) == _formatHour(item.dateTime))) {
         groupedForecasts[date]!.add(item);
       }
     }
 
     // Keep only the first 5 days
-    return Map.fromEntries(
-      groupedForecasts.entries.take(5)
-    );
+    return Map.fromEntries(groupedForecasts.entries.take(5));
   }
 
   @override
@@ -81,7 +80,8 @@ class WeatherScreen extends StatelessWidget {
                     ),
                     Text(
                       '${weatherService.name}, ${weatherService.sys.country}',
-                      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       'TimeZone: ${weatherService.timezone}',
@@ -93,7 +93,8 @@ class WeatherScreen extends StatelessWidget {
                     ),
                     Text(
                       'Temp: ${_kelvinToCelsius(weatherService.main.temp).toStringAsFixed(1)}°C',
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -117,9 +118,7 @@ class WeatherScreen extends StatelessWidget {
                         Text(
                           date,
                           style: const TextStyle(
-                            fontSize: 18, 
-                            fontWeight: FontWeight.bold
-                          ),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 200,
@@ -136,7 +135,8 @@ class WeatherScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   color: AppColors.secondaryColor.withAlpha(70),
                                 ),
-                                margin: const EdgeInsets.symmetric(horizontal: 5),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 5),
                                 padding: const EdgeInsets.all(12.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -144,9 +144,8 @@ class WeatherScreen extends StatelessWidget {
                                     Text(
                                       _formatHour(item.dateTime),
                                       style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold
-                                      ),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Image.asset(
                                       'assets/images/weather_status/${ImageHelper.getImagePath(

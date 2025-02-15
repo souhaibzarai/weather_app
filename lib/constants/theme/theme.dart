@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 final ThemeData theme = ThemeData(
-  scaffoldBackgroundColor: AppColors.backgroundColor,
+  scaffoldBackgroundColor: AppColors.initialColor,
   fontFamily: 'mainFont',
   textTheme: TextTheme(
     bodyLarge: TextStyle(color: AppColors.mainColor),

@@ -31,7 +31,7 @@ class WelcomeButton extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'specialFont',
-            color: AppColors.backgroundColor,
+            color: AppColors.initialColor,
             fontSize: 15,
           ),
         ),

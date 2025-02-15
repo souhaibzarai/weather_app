@@ -77,7 +77,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void showProgressIndicator() {
     AlertDialog alertDialog = AlertDialog(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.initialColor,
       elevation: 0,
       content: Center(
         child: CircularProgressIndicator(
@@ -87,7 +87,7 @@ class _LocationScreenState extends State<LocationScreen> {
     );
 
     showDialog(
-      barrierColor: AppColors.backgroundColor,
+      barrierColor: AppColors.initialColor,
       barrierDismissible: false,
       context: context,
       builder: (context) {
@@ -98,7 +98,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   buildInfoDialogResult() {
     return showModalBottomSheet(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.initialColor,
       context: context,
       useSafeArea: true,
       builder: (context) {
@@ -160,7 +160,7 @@ class _LocationScreenState extends State<LocationScreen> {
       content: Text(
         text,
       ),
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.initialColor,
       dismissDirection: DismissDirection.down,
       duration: Duration(seconds: 20),
     ));
