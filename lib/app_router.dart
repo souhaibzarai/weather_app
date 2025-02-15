@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/weather/business_logic/cubit/multi_days_weather/multi_days_cubit.dart';
-import 'features/weather/data/models/multi_days_weather/list.dart';
-import 'features/weather/data/repository/multi_days_weather_repository.dart';
-import 'package:softux_weather/features/weather/data/webservices/multi_days_web_services.dart';
+
 import 'constants/strings.dart';
 import 'features/home/business_logic/cubit/home_cubit.dart';
 import 'features/home/data/repository/home_repository.dart';
@@ -11,10 +8,13 @@ import 'features/home/data/webservices/home_web_services.dart';
 import 'features/home/presentation/screens/location_screen.dart';
 import 'features/home/presentation/screens/welcome_screen.dart';
 import 'features/weather/business_logic/cubit/current_weather/weather_cubit.dart';
+import 'features/weather/business_logic/cubit/multi_days_weather/multi_days_cubit.dart';
 import 'features/weather/data/models/current_weather/weather_service.dart';
+import 'features/weather/data/models/multi_days_weather/list.dart';
 import 'features/weather/data/repository/current_weather_repository.dart';
+import 'features/weather/data/repository/multi_days_weather_repository.dart';
+import 'features/weather/data/webservices/multi_days_web_services.dart';
 import 'features/weather/data/webservices/weather_web_services.dart';
-
 import 'features/weather/presentation/screens/weather_screen.dart';
 
 class AppRouter {

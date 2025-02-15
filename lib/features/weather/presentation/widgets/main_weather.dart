@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/features/weather/data/models/current_weather/weather_service.dart';
-import 'package:softux_weather/features/weather/presentation/helper/image_helper.dart';
-import 'package:softux_weather/features/weather/presentation/helper/weather_methods_helper.dart';
-import 'package:softux_weather/features/weather/presentation/widgets/main_weather_sub_widget/sunset_sunrise.dart';
-import 'package:softux_weather/features/weather/presentation/widgets/main_weather_sub_widget/wind_widget.dart';
+import '../../data/models/current_weather/weather_service.dart';
+import '../helper/image_helper.dart';
+import '../helper/weather_methods_helper.dart';
+import 'main_weather_sub_widget/sunset_sunrise.dart';
+import 'main_weather_sub_widget/wind_widget.dart';
 
 import '../../../../constants/app_constants.dart';
 import '../../../../constants/theme/app_colors.dart';

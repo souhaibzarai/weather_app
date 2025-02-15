@@ -1,6 +1,6 @@
-import 'package:softux_weather/features/weather/data/models/multi_days_weather/main.dart';
-import 'package:softux_weather/features/weather/data/models/multi_days_weather/weather.dart';
-import 'package:softux_weather/features/weather/data/models/multi_days_weather/wind.dart';
+import 'main.dart';
+import 'weather.dart';
+import 'wind.dart';
 
 class MultiDaysWeatherObject {
   final int dateTime;

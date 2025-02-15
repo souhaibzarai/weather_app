@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
-import 'package:softux_weather/features/home/presentation/widgets/text_row.dart';
-import 'package:softux_weather/features/weather/business_logic/cubit/multi_days_weather/multi_days_cubit.dart';
-import 'package:softux_weather/features/weather/data/models/current_weather/weather_service.dart';
+import '../widgets/text_row.dart';
+import '../../../weather/business_logic/cubit/multi_days_weather/multi_days_cubit.dart';
+import '../../../weather/data/models/current_weather/weather_service.dart';
 import '../../../../constants/strings.dart';
 import '../../../weather/data/models/multi_days_weather/list.dart';
 import '../../business_logic/cubit/home_cubit.dart';

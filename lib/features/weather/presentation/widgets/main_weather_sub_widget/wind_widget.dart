@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/features/weather/data/models/current_weather/weather_service.dart';
+import '../../../data/models/current_weather/weather_service.dart';
 
 import '../../../../../constants/theme/app_colors.dart';
 import 'decorated_container.dart';

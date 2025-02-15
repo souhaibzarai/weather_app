@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:softux_weather/constants/theme/app_colors.dart';
-import 'package:softux_weather/features/weather/data/models/current_weather/weather_service.dart';
-import 'package:softux_weather/features/weather/data/models/multi_days_weather/list.dart';
-import 'package:softux_weather/features/weather/presentation/widgets/daily_item.dart';
-import 'package:softux_weather/features/weather/presentation/widgets/main_weather.dart';
+import '../../../../constants/theme/app_colors.dart';
+import '../../data/models/current_weather/weather_service.dart';
+import '../../data/models/multi_days_weather/list.dart';
+import '../widgets/daily_item.dart';
+import '../widgets/main_weather.dart';
 
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({
