@@ -30,6 +30,9 @@ class ImageHelper {
     if (weatherMain.contains('mist') || weatherDetail.contains('mist')) {
       path = 'mist.png';
     }
+    if (weatherDetail.contains('clear sky')) {
+      path = 'clear.png';
+    }
     return 'assets/images/weather_status/$path';
   }
 }

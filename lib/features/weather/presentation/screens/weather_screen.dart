@@ -28,6 +28,12 @@ class WeatherScreen extends StatelessWidget {
                 MainWeather(weatherService: weatherService),
                 const SizedBox(height: 8),
                 buildTextForecast(),
+                Divider(
+                  thickness: 0,
+                  color: AppColors.secondaryColor,
+                  // indent: 30,
+                  // endIndent: 30,
+                ),
                 const SizedBox(height: 8),
                 DailyLayer(daysList: daysList),
               ],
@@ -43,7 +49,7 @@ Widget buildTextForecast() {
   return Text(
     '5 Days Forecast:',
     style: TextStyle(
-      color: AppColors.mainColor,
+      color: AppColors.widgetMainTextColor,
       fontSize: 20,
     ),
   );

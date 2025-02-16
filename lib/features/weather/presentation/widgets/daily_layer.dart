@@ -15,13 +15,15 @@ class DailyLayer extends StatelessWidget {
         WeatherMethodsHelper.forecast(daysList).groupForecastByDate();
 
     return SizedBox(
-      height: 350,
-      child: ListView.builder(
+      height: 1264,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(height: 20),
+        scrollDirection: Axis.vertical,
+        physics: NeverScrollableScrollPhysics(),
         itemCount: groupedForecasts.length,
         itemBuilder: (context, index) {
           final date = groupedForecasts.keys.elementAt(index);
           final dailyForecast = groupedForecasts[date]!;
-
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -29,21 +31,24 @@ class DailyLayer extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   date,
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: AppColors.humidityColor,
+                  ),
                   textAlign: TextAlign.start,
                 ),
               ),
               SizedBox(
                 height: 200,
-                child: ListView.builder(
+                child: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(width: 15),
                   scrollDirection: Axis.horizontal,
                   itemCount: dailyForecast.length,
                   itemBuilder: (context, hourIndex) {
                     final item = dailyForecast[hourIndex];
                     return Container(
-                      width: 130,
+                      width: 140,
                       height: 200,
-                      margin: EdgeInsets.all(8),
                       padding: EdgeInsets.symmetric(
                         horizontal: 12,
                         vertical: 10,
@@ -74,17 +79,18 @@ class DailyLayer extends StatelessWidget {
                           Text(
                             '${WeatherMethodsHelper.getTempCelsius(item.main.temp)}°C',
                             style: TextStyle(
-                              color: AppColors.initialColor,
-                              fontSize: 17,
+                              color: AppColors.headerBgColor,
+                              fontFamily: 'specialFont',
+                              fontSize: 22,
                             ),
                           ),
                           Text(
-                            '${item.weather.description}',
+                            '${item.weather.main}, ${item.weather.description}',
                             maxLines: 1,
                             style: TextStyle(
-                              color: AppColors.mainColor,
+                              color: AppColors.widgetDetailTextColor,
                               overflow: TextOverflow.ellipsis,
-                              fontSize: 16,
+                              fontSize: 17,
                             ),
                           ),
                         ],
