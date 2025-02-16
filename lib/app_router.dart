@@ -9,7 +9,7 @@ import 'features/home/presentation/screens/location_screen.dart';
 import 'features/home/presentation/screens/welcome_screen.dart';
 import 'features/weather/business_logic/cubit/current_weather/weather_cubit.dart';
 import 'features/weather/business_logic/cubit/multi_days_weather/multi_days_cubit.dart';
-import 'features/weather/data/models/current_weather/weather_service.dart';
+import 'features/weather/data/models/weather_service.dart';
 import 'features/weather/data/models/multi_days_weather/list.dart';
 import 'features/weather/data/repository/current_weather_repository.dart';
 import 'features/weather/data/repository/multi_days_weather_repository.dart';

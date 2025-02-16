@@ -1,8 +1,8 @@
-import 'wind.dart';
-import 'coord.dart';
-import 'main.dart';
-import 'sys.dart';
-import 'weather.dart';
+import 'current_weather/wind.dart';
+import 'current_weather/coord.dart';
+import 'current_weather/main.dart';
+import 'current_weather/sys.dart';
+import 'current_weather/weather.dart';
 
 class WeatherService {
   final Coord coord;

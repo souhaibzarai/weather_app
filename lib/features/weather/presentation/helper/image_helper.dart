@@ -13,7 +13,7 @@ class ImageHelper {
     if (weatherDetail.contains(' rain') && !weatherDetail.contains('snow')) {
       path = 'soft_rain.png';
     }
-    if (weatherMain == 'clouds') {
+    if (weatherMain.contains('clouds')) {
       if (weatherDetail.contains('few')) {
         path = 'few_clouds.png';
       }
@@ -29,8 +29,6 @@ class ImageHelper {
     }
     if (weatherMain.contains('mist') || weatherDetail.contains('mist')) {
       path = 'mist.png';
-    } else {
-      path = 'sun.png';
     }
     return 'assets/images/weather_status/$path';
   }

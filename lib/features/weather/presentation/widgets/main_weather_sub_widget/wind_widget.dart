@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/current_weather/weather_service.dart';
+import '../../../data/models/weather_service.dart';
 
 import '../../../../../constants/theme/app_colors.dart';
 import 'decorated_container.dart';
@@ -24,7 +24,7 @@ class WindWidget extends StatelessWidget {
           ),
           const SizedBox(height: 3),
           Text(
-            '${weatherService.wind.speed}km/h',
+            '${weatherService.wind.speed.toStringAsFixed(1)}km/h',
             style: TextStyle(
               fontSize: 12,
               color: AppColors.widgetDetailTextColor,

@@ -1,6 +1,6 @@
-import 'main.dart';
-import 'weather.dart';
-import 'wind.dart';
+import 'multi_days_weather/main.dart';
+import 'multi_days_weather/weather.dart';
+import 'multi_days_weather/wind.dart';
 
 class MultiDaysWeatherObject {
   final int dateTime;

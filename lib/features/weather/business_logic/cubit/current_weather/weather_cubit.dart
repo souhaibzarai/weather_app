@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../data/models/current_weather/weather_service.dart';
+import '../../../data/models/weather_service.dart';
 import '../../../data/repository/current_weather_repository.dart';
 
 part 'weather_state.dart';
@@ -16,8 +16,7 @@ class WeatherCubit extends Cubit<WeatherState> {
 
     try {
       final currentWeather =
-          // await weatherRepository.fetchCurrentCityWeather(cityName); TODO
-          await weatherRepository.fetchCurrentCityWeather('paris,fr');
+          await weatherRepository.fetchCurrentCityWeather(cityName);
 
       emit(WeatherLoaded(currentWeather));
     } catch (e) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../data/models/current_weather/weather_service.dart';
-import '../helper/image_helper.dart';
+import '../../data/models/weather_service.dart';
 import '../helper/weather_methods_helper.dart';
 import 'main_weather_sub_widget/sunset_sunrise.dart';
 import 'main_weather_sub_widget/wind_widget.dart';
@@ -18,7 +17,7 @@ class MainWeather extends StatelessWidget {
       padding: AppConstants.contentPadding,
       alignment: Alignment.topCenter,
       constraints: BoxConstraints(
-        minHeight: 400,
+        minHeight: 100,
         maxWidth: double.infinity,
       ),
       decoration: BoxDecoration(
@@ -38,22 +37,14 @@ class MainWeather extends StatelessWidget {
               fontSize: 22,
             ),
           ),
-          Image.asset(
-            ImageHelper.getImagePath(
-              weatherService.weather.main,
-              weatherService.weather.description,
-            ),
-            width: 150,
-            height: 150,
-          ),
-          Text(
-            '${weatherService.weather.main}, ${weatherService.weather.description.toUpperCase()}', //weather desc
-            style: TextStyle(
-              color: AppColors.mainColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
+          // Image.asset(
+          //   ImageHelper.getImagePath(
+          //     weatherService.weather.main,
+          //     weatherService.weather.description,
+          //   ),
+          //   width: 150,
+          //   height: 150,
+          // ),
           Text.rich(
             TextSpan(
               text: WeatherMethodsHelper.getTempCelsius(
@@ -76,6 +67,14 @@ class MainWeather extends StatelessWidget {
             ),
           ),
           Text(
+            '${weatherService.weather.main}, ${weatherService.weather.description.toUpperCase()}', //weather desc
+            style: TextStyle(
+              color: AppColors.mainColor,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
             'H: ${weatherService.main.humidity} | MIN: ${WeatherMethodsHelper.getTempCelsius(weatherService.main.tempMin)}° | MAX: ${WeatherMethodsHelper.getTempCelsius(weatherService.main.tempMax)}°',
             style: TextStyle(
               color: AppColors.humidityColor,
@@ -89,7 +88,7 @@ class MainWeather extends StatelessWidget {
             children: [
               WindWidget(weatherService),
               const SizedBox(width: 10),
-              SunsetSunriseWidget(),
+              SunsetSunriseWidget(weatherService),
             ],
           ),
         ],

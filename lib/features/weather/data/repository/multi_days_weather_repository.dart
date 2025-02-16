@@ -12,9 +12,8 @@ class MultiDaysWeatherRepository {
 
       return DaysList.fromJson(dayslist);
     } catch (e) {
-      print('Error Occured while fetching in multi days repository | $e');
-      return DaysList(
-        listOfMultiDaysWeather: [],
+      throw Exception(
+        'Error Occured while fetching in multi days repository | $e',
       );
     }
   }

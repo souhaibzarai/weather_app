@@ -1,4 +1,4 @@
-import '../models/current_weather/weather_service.dart';
+import '../models/weather_service.dart';
 import '../webservices/weather_web_services.dart';
 
 class WeatherRepository {

@@ -21,7 +21,6 @@ class MultiDaysWebServices {
       final response = await dio.get(getMultiDaysForecast, queryParameters: {
         'q': cityName,
         'appid': weatherApiKey,
-        // 'cnt': 5,
       });
 
       return response.data;

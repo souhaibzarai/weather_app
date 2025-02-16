@@ -1,4 +1,4 @@
-import 'multi_days_weather_object.dart';
+import '../forecast.dart';
 
 class DaysList {
   final List<MultiDaysWeatherObject> listOfMultiDaysWeather;

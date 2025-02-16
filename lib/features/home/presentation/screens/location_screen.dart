@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:location/location.dart';
 import '../widgets/text_row.dart';
 import '../../../weather/business_logic/cubit/multi_days_weather/multi_days_cubit.dart';
-import '../../../weather/data/models/current_weather/weather_service.dart';
+import '../../../weather/data/models/weather_service.dart';
 import '../../../../constants/strings.dart';
 import '../../../weather/data/models/multi_days_weather/list.dart';
 import '../../business_logic/cubit/home_cubit.dart';
@@ -42,14 +42,15 @@ class _LocationScreenState extends State<LocationScreen> {
     try {
       LocationData? currentPosition = await LocationHelper.getCurrentLocation();
 
-      lat = currentPosition?.latitude;
-      lng = currentPosition?.latitude;
+      lat = currentPosition!.latitude;
+      lng = currentPosition.longitude;
 
       if (lat != null && lng != null) {
         // ignore: use_build_context_synchronously
         BlocProvider.of<HomeCubit>(context).getCityName(lat!, lng!);
         return;
       }
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
       showScaffold(
         lat == null && lng == null
@@ -59,7 +60,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 : 'longitude is null',
       );
     } catch (e) {
-      print('error, couldnt get location $e');
+      throw Exception('error, couldnt get location $e');
     }
   }
 
