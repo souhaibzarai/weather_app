@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:softux_weather/features/weather/data/models/multi_days_weather/list.dart';
 
 import '../../../data/models/weather_service.dart';
 import '../../../data/repository/current_weather_repository.dart';

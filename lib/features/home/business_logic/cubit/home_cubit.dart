@@ -15,6 +15,12 @@ class HomeCubit extends Cubit<HomeState> {
     emit(CityNameLoading());
     try {
       final city = await homeRepository.fetchCityName(lat, lng);
+
+      if (city.results.first.formattedAddress.isEmpty) {
+        emit(CityNameNotFound('City Name Not Found'));
+        return;
+      }
+
       emit(CityNameLoaded(city));
     } catch (e) {
       emit(CityNameError(e.toString()));

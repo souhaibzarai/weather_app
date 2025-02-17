@@ -18,3 +18,8 @@ final class CityNameError extends HomeState {
 
   CityNameError(this.errMsg);
 }
+
+final class CityNameNotFound extends HomeState {
+  final String notFoundMsg;
+  CityNameNotFound(this.notFoundMsg);
+}

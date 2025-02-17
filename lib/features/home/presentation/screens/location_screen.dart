@@ -175,6 +175,10 @@ class _LocationScreenState extends State<LocationScreen> {
         BlocListener<HomeCubit, HomeState>(
           listenWhen: (prev, current) => prev != current,
           listener: (context, state) {
+            if (state is CityNameNotFound) {
+              errorMsg = state.notFoundMsg;
+              showScaffold(errorMsg!);
+            }
             if (state is CityNameLoaded) {
               String formattedAddress =
                   state.city.results.first.formattedAddress;

@@ -18,3 +18,13 @@ final class WeatherError extends WeatherState {
 
   WeatherError(this.errMsg);
 }
+
+final class WeatherAndForecastState extends WeatherState {
+  final WeatherService weatherService;
+  final DaysList daysList;
+
+  WeatherAndForecastState({
+    required this.weatherService,
+    required this.daysList,
+  });
+}
